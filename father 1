@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TRAINING PAGE — DO NOT ENTER REAL CREDENTIALS</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Helvetica,Arial;sans-serif;
+         background:#f4f6f8;margin:0;display:flex;align-items:center;justify-content:center;height:100vh}
+    .card{background:white;padding:28px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.08);width:360px}
+    .banner{background:#ffcc00;color:#000;padding:8px;border-radius:6px;text-align:center;font-weight:700;margin-bottom:16px}
+    h1{font-size:18px;margin:0 0 8px}
+    p.note{font-size:12px;color:#666;margin:0 0 16px}
+    label{display:block;font-size:13px;margin:10px 0 6px}
+    input[type=text], input[type=password]{
+      width:100%;padding:10px;border:1px solid #d7dde3;border-radius:6px;font-size:14px;
+    }
+    button{width:100%;margin-top:14px;padding:10px;background:#0b62d9;color:white;border:none;border-radius:6px;font-weight:600}
+    .result{margin-top:12px;padding:10px;background:#eef6ff;border-radius:6px;font-size:13px;display:none}
+    .foot{font-size:12px;color:#999;margin-top:12px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="card" role="main" aria-labelledby="title">
+    <div class="banner">TRAINING / SIMULATION — DO NOT ENTER REAL CREDENTIALS</div>
+    <h1 id="title">Sample Bank Login — TRAINING ONLY</h1>
+    <p class="note">This page is a simulated training page. Any submitted values will be displayed on-screen and not stored.</p>
+
+    <form id="mockForm" onsubmit="return handleSubmit(event)" autocomplete="off" novalidate>
+      <label for="user">User ID</label>
+      <input id="user" name="user" type="text" inputmode="text" placeholder="e.g. user123">
+
+      <label for="pin">Password / PIN</label>
+      <input id="pin" name="pin" type="password" placeholder="Enter training password">
+
+      <button type="submit">Sign in (Training)</button>
+
+      <div id="result" class="result" aria-live="polite"></div>
+    </form>
+
+    <div class="foot">Purpose: security training. Do not use with real credentials.</div>
+  </div>
+
+  <script>
+    function handleSubmit(e){
+      e.preventDefault();
+      const u = document.getElementById('user').value || '(empty)';
+      const p = document.getElementById('pin').value ? '••••••' : '(empty)';
+      const r = document.getElementById('result');
+      r.style.display = 'block';
+      r.innerHTML = '<strong>Submitted (training only):</strong><br>User ID: '
+                    + escapeHtml(u) + '<br>Password (masked): ' + escapeHtml(p);
+      // NOTE: in real training, log to a local file or monitoring tool with consent.
+      return false;
+    }
+    function escapeHtml(s){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  </script>
+</body>
+</html>
